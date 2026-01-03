@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer>
             <div className="footer-badge">
-                <Copyright size={16} style={{ marginRight: '8px' }} /> MADE WITH ANTIGRAVITY
+                <Copyright size={16} style={{ marginRight: '8px' }} /> PRAGATI RANA
             </div>
         </footer>
     );
