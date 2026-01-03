@@ -1,0 +1,900 @@
+:root {
+  --primary-red: #EB141E;
+  --primary-blue: #0056FF;
+  --bg-black: #050505;
+  --text-white: #ffffff;
+  --text-gray: #a0a0a0;
+  --card-bg: #0a0a0a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+.logo,
+.nav-item,
+.pill-btn,
+.big-text-bg,
+.side-name {
+  font-family: 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  z-index: 20;
+  position: relative;
+}
+
+.logo {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  background: var(--primary-red);
+  padding: 0.2rem 0.5rem;
+  transform: skew(-10deg);
+  font-weight: 400;
+  border: 2px solid white;
+}
+
+nav {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-item {
+  color: var(--text-gray);
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.nav-item:hover {
+  color: var(--primary-red);
+}
+
+.header-right {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.icon {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.icon:hover {
+  color: var(--primary-red);
+}
+
+/* Main Hero Layout */
+main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Background Elements */
+.hero-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  80% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpMain {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    letter-spacing: 50px;
+    filter: blur(20px);
+  }
+
+  to {
+    opacity: 0.9;
+    letter-spacing: normal;
+    filter: blur(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDownStagger {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.red-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vh;
+  height: 60vh;
+  background: var(--primary-red);
+  border-radius: 50%;
+  box-shadow: 0 0 100px rgba(235, 20, 30, 0.4);
+  animation: popIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.big-text-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18vw;
+  white-space: nowrap;
+  color: white;
+  opacity: 0.9;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  animation: fadeInText 1.5s ease-out forwards;
+}
+
+/* Central Figure */
+.hero-figure {
+  position: relative;
+  z-index: 5;
+  height: 90vh;
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  animation: slideUpMain 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  /* Starts hidden, animation reveals */
+  animation-delay: 0.3s;
+}
+
+.main-profile-img {
+  height: 100%;
+  width: auto;
+  max-width: 90vw;
+  object-fit: contain;
+  filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.5));
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+/* Floating UI Elements */
+.ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  padding: 0 4rem;
+  pointer-events: none;
+  /* Let clicks pass through empty space */
+}
+
+/* Pills (Left Top) */
+.pills-container {
+  position: absolute;
+  top: 10%;
+  left: 4rem;
+  display: flex;
+  gap: 1rem;
+  pointer-events: auto;
+  opacity: 0;
+  animation: slideInDownStagger 0.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.pill-btn {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  color: var(--text-gray);
+  transition: all 0.3s;
+}
+
+.pill-btn:hover {
+  background: var(--primary-red);
+  color: white;
+  border-color: var(--primary-red);
+}
+
+/* Side Names (Cast style) */
+.side-names-left {
+  position: absolute;
+  top: 30%;
+  left: 4rem;
+  display: flex;
+  gap: 2rem;
+  opacity: 0;
+  animation: slideInLeft 1s ease-out forwards;
+  animation-delay: 1.8s;
+}
+
+.side-names-right {
+  position: absolute;
+  top: 30%;
+  right: 4rem;
+  display: flex;
+  gap: 2rem;
+  opacity: 0;
+  animation: slideInRight 1s ease-out forwards;
+  animation-delay: 1.8s;
+}
+
+.side-name {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.side-name.highlight {
+  color: white;
+}
+
+/* Marquee at bottom */
+.marquee-wrapper {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  /* In front of figure legs */
+  transform: rotate(-2deg);
+  /* Slightly dynamic angle like reference belt? Or straight. Let's keep straight for now or slight tilt */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.marquee-track i {
+  font-size: 3rem;
+  /* Circle background for icons to look like "Spider-faces" in reference */
+  background: #111;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile Adapt */
+@media (max-width: 768px) {
+  header {
+    padding: 1.5rem 2rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  /* Hide Desktop Nav */
+  nav,
+  .header-right {
+    display: none;
+  }
+
+  /* Show Mobile Menu Icon (if added, currently just logo) */
+
+  .hero-figure {
+    height: 65vh;
+    margin-top: 15vh;
+    align-items: flex-end;
+  }
+
+  .main-profile-img {
+    max-width: 95vw;
+    /* Adjust mask for mobile */
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  }
+
+  .big-text-bg {
+    font-size: 25vw;
+    top: 40%;
+    /* Move up slightly */
+  }
+
+  .red-circle {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  /* UI Layer adjustments */
+  .pills-container {
+    top: auto;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 25;
+    /* Above marquee */
+  }
+
+  .pill-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.7);
+    /* Darker for readability */
+  }
+
+  /* Show names on mobile but smaller/stacked */
+  .side-names-left,
+  .side-names-right {
+    display: flex;
+    position: absolute;
+    top: 15%;
+    /* Below header */
+    width: auto;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .side-names-left {
+    left: 2rem;
+    align-items: flex-start;
+  }
+
+  .side-names-right {
+    top: 15%;
+    right: 2rem;
+    left: auto;
+    /* Reset left */
+    align-items: flex-end;
+  }
+
+  .side-name {
+    font-size: 1.2rem;
+    /* Slighly bigger */
+    background: rgba(0, 0, 0, 0.3);
+    /* Legibility */
+    padding: 2px 5px;
+  }
+
+  .marquee-wrapper {
+    bottom: 12%;
+    /* Move up a bit */
+    transform: rotate(0deg);
+  }
+
+  .marquee-track i {
+    font-size: 2.5rem;
+  }
+
+  /* Mobile Content Fill */
+  .mobile-hero-content {
+    position: absolute;
+    bottom: 25%;
+    /* Above marquee/pills */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0 2rem;
+    z-index: 24;
+    display: block;
+  }
+
+  .mobile-hero-content p {
+    font-family: 'Bebas Neue';
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 10px black;
+  }
+}
+
+/* Tablet / Desktop hide mobile content */
+@media (min-width: 769px) {
+  .mobile-hero-content {
+    display: none;
+  }
+}
+
+
+/* About Section */
+.about-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.about-top-half {
+  height: 40vh;
+  background-color: var(--bg-black);
+  width: 100%;
+}
+
+.about-bottom-half {
+  height: 60vh;
+  background-color: white;
+  width: 100%;
+  border-top: 4px solid var(--primary-red);
+  position: relative;
+}
+
+/* Add a subtle grid/circle pattern to bottom half like reference? */
+.about-bottom-half::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vh;
+  height: 80vh;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.about-content-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+}
+
+/* Stacked Cards */
+.stacked-cards {
+  position: absolute;
+  top: 30%;
+  /* Straddle the line */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 280px;
+  z-index: 10;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid white;
+  transition: transform 0.3s;
+}
+
+.card-1 {
+  background: #333;
+  transform: rotate(-10deg) translate(-20px, 10px);
+  z-index: 1;
+}
+
+.card-2 {
+  background: #555;
+  transform: rotate(10deg) translate(20px, 10px);
+  z-index: 2;
+}
+
+.card-3 {
+  background: var(--primary-red);
+  transform: rotate(0deg);
+  z-index: 3;
+  overflow: hidden;
+}
+
+.about-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  /* Stylistic choice */
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  position: absolute;
+  top: 40%;
+  /* Near the line */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  transition: transform 0.2s;
+}
+
+.nav-btn:hover {
+  transform: scale(1.1);
+}
+
+.prev-btn {
+  left: 4rem;
+  background: var(--primary-red);
+  color: white;
+  box-shadow: 0 10px 20px rgba(235, 20, 30, 0.4);
+}
+
+.next-btn {
+  right: 4rem;
+  background: white;
+  color: black;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Grid */
+.about-text-grid {
+  position: absolute;
+  top: 50%;
+  /* Starts at the split line */
+  width: 100%;
+  left: 0;
+  padding: 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: black;
+  /* Text on white background */
+}
+
+.text-left {
+  flex: 1;
+}
+
+.text-right {
+  flex: 1;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.text-center-spacer {
+  flex: 1;
+  /* Space for cards */
+}
+
+.big-title {
+  font-size: 6rem;
+  line-height: 0.9;
+  color: black;
+  margin: 0;
+}
+
+.name-title {
+  font-size: 5rem;
+}
+
+.small-label {
+  font-family: 'Bebas Neue';
+  color: var(--primary-red);
+  letter-spacing: 2px;
+  margin-top: 1rem;
+  display: block;
+}
+
+.about-description {
+  font-family: 'Bebas Neue';
+  font-size: 1.2rem;
+  max-width: 400px;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .stacked-cards {
+    width: 150px;
+    height: 200px;
+    top: 35%;
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    top: 38%;
+  }
+
+  .prev-btn {
+    left: 1rem;
+  }
+
+  .next-btn {
+    right: 1rem;
+  }
+
+  .about-text-grid {
+    flex-direction: column;
+    text-align: center;
+    padding: 4rem 1rem 1rem 1rem;
+    /* Padding top to clear cards */
+    gap: 2rem;
+  }
+
+  .text-left,
+  .text-right {
+    text-align: center;
+    align-items: center;
+  }
+
+  .big-title {
+    font-size: 4rem;
+  }
+
+  .name-title {
+    font-size: 3.5rem;
+  }
+
+  .text-center-spacer {
+    display: none;
+  }
+}
+
+/* Skills Section */
+.skills-section {
+  background-color: var(--bg-black);
+  color: white;
+  padding: 6rem 0;
+  /* Remove side padding to let marquees go full width */
+  position: relative;
+  border-top: 1px solid #333;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out;
+}
+
+.skills-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-header {
+  padding: 0 4rem;
+  /* Restore padding for header */
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 5rem;
+  margin: 0;
+  line-height: 1;
+}
+
+.highlight-red {
+  color: var(--primary-red);
+}
+
+.section-line {
+  width: 100px;
+  height: 4px;
+  background: var(--primary-red);
+  margin-top: 1rem;
+}
+
+/* Marquee Rows */
+.skills-rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.skill-category-row {
+  position: relative;
+}
+
+.category-row-title {
+  font-size: 1.5rem;
+  color: var(--text-gray);
+  margin-bottom: 1rem;
+  padding-left: 4rem;
+  /* Align with header */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Bebas Neue';
+  letter-spacing: 2px;
+}
+
+.category-line {
+  height: 1px;
+  background: #333;
+  flex: 1;
+  margin-right: 4rem;
+}
+
+.skill-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1rem 0;
+  /* Mask for fade out on edges */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.skill-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+}
+
+.scroll-left {
+  animation: skillScrollLeft 30s linear infinite;
+}
+
+.scroll-right {
+  animation: skillScrollRight 30s linear infinite;
+}
+
+.skill-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.skill-pill:hover {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(235, 20, 30, 0.4);
+  z-index: 10;
+  /* Pop out */
+}
+
+.skill-pill-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.skill-icon-small {
+  font-size: 1.5rem;
+}
+
+@keyframes skillScrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes skillScrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section-title {
+    font-size: 3rem;
+  }
+
+  .section-header {
+    padding: 0 2rem;
+  }
+
+  .category-row-title {
+    padding-left: 2rem;
+  }
+}

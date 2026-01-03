@@ -1,0 +1,220 @@
+/* Activities Matrix Graph Chart Style */
+.activities-section-new {
+    padding: 6rem 4rem;
+    background-color: #fbfbfb;
+    position: relative;
+    overflow: hidden;
+    /* Technical Grid Background */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Vignette overlay for depth */
+.activities-section-new::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(255, 255, 255, 0.8) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.activities-section-new .section-title {
+    color: #111;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+}
+
+.activities-section-new .section-title .highlight-red {
+    color: #e63946;
+    /* A more technical red */
+    text-shadow: 0 0 10px rgba(230, 57, 70, 0.2);
+}
+
+.activities-section-new .section-line {
+    background-color: #333;
+    height: 2px;
+    width: 60px;
+    margin: 1.5rem auto;
+    position: relative;
+    z-index: 2;
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 3rem;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.activity-card {
+    background: white;
+    border: 1px solid #333;
+    /* Stark technical border */
+    border-radius: 4px;
+    /* Slightly squarer for tech look */
+    padding: 2.5rem;
+    position: relative;
+    overflow: visible;
+    /* Needed for markers outside */
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    cursor: pointer;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.1);
+    /* Hard shadow */
+}
+
+/* Corner Markers (The "Schematic" look) */
+.activity-card::before,
+.activity-card::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.activity-card::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.activity-card::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
+.activity-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.15);
+    /* deeper hard shadow */
+    border-color: var(--accent-color);
+}
+
+.activity-card:hover::before,
+.activity-card:hover::after {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+}
+
+/* ID Tag */
+.card-content::before {
+    content: 'NODE_0' counter(card-counter);
+    /* CSS counters would need setup, simplifying for now */
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #999;
+    display: block;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 0.2rem;
+}
+
+.card-bg-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-color);
+    opacity: 0.8;
+}
+
+.card-icon-wrapper {
+    background: transparent;
+    width: 60px;
+    height: 60px;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.activity-card:hover .card-icon-wrapper {
+    border-style: solid;
+    border-color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.activity-card:hover .card-icon-wrapper svg {
+    color: var(--accent-color) !important;
+    transform: scale(1.1);
+}
+
+.card-content {
+    z-index: 2;
+}
+
+.card-location {
+    font-family: 'Share Tech Mono', monospace;
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    /* Keep Bebas for big impact */
+    font-size: 3rem;
+    line-height: 0.9;
+    color: #111;
+    margin-bottom: 0.2rem;
+    letter-spacing: 1px;
+}
+
+.card-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    border-left: 3px solid var(--accent-color);
+    padding-left: 0.8rem;
+}
+
+.card-description {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Hide the gradient border from previous design */
+.card-border-gradient {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .activities-section-new {
+        padding: 4rem 1.5rem;
+    }
+
+    .activities-grid {
+        grid-template-columns: 1fr;
+    }
+}
