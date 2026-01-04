@@ -17,7 +17,7 @@ const activitiesData = [
         title: "ACHIEVEMENTS",
         subtitle: "HACKATHONS & AWARDS",
         location: "NATIONAL LEVEL",
-        description: "WINNER OF SMART INDIA HACKATHON 2024. SECURED 1ST RANK IN UNIVERSITY CODING CONTEST. CONTRIBUTED TO MAJOR OPEN SOURCE REPOSITORIES.",
+        description: "SECURED 1ST RANK IN UNIVERSITY CODING CONTEST. CONTRIBUTED TO MAJOR OPEN SOURCE REPOSITORIES.",
         cardColor: "#32CD32",
         icon: Trophy
     },
